@@ -44,6 +44,21 @@ public interface ModpackApi {
     ModDetail getModDetails(ModItem item);
 
     /**
+     * Fetch the mod details, optionally narrowed to versions matching a given
+     * Minecraft version and/or mod loader. Used by the standalone mod browser
+     * (as opposed to the modpack browser, which always wants every version).
+     * Implementations that don't support server-side filtering may simply
+     * ignore the extra parameters and delegate to {@link #getModDetails(ModItem)}.
+     * @param item The moditem that was selected
+     * @param filterMcVersion Minecraft version to filter versions by, or null/empty for any
+     * @param filterLoader Mod loader to filter versions by, or null/empty for any
+     * @return Detailed data about a mod
+     */
+    default ModDetail getModDetails(ModItem item, String filterMcVersion, String filterLoader) {
+        return getModDetails(item);
+    }
+
+    /**
      * Download and install the modpack
      * @param modDetail The mod detail data
      * @param selectedVersion The selected version

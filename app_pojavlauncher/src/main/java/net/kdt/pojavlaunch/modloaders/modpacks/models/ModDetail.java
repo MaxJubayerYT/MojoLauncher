@@ -12,6 +12,10 @@ public class ModDetail extends ModItem {
     public String[] versionUrls;
     /* SHA 1 hashes, null if a hash is unavailable */
     public String[] versionHashes;
+    /* Modrinth version ids (parallel array to the others above), null unless
+     * populated by an API that supports resolving individual mod versions
+     * (see ModrinthApi#getModDetails(ModItem, String, String)) */
+    public String[] versionIds;
     public ModDetail(ModItem item, String[] versionNames, String[] mcVersionNames, String[] versionUrls, String[] hashes) {
         super(item.apiSource, item.isModpack, item.id, item.title, item.description, item.imageUrl);
         this.versionNames = versionNames;

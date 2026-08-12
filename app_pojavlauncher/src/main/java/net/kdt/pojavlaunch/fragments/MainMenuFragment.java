@@ -52,6 +52,7 @@ public class MainMenuFragment extends Fragment {
         Button mDiscordButton = view.findViewById(R.id.social_media_button);
         Button mCustomControlButton = view.findViewById(R.id.custom_control_button);
         Button mInstallJarButton = view.findViewById(R.id.install_jar_button);
+        Button mManageModsButton = view.findViewById(R.id.manage_mods_button);
         Button mShareLogsButton = view.findViewById(R.id.share_logs_button);
         Button mOpenDirectoryButton = view.findViewById(R.id.open_files_button);
 
@@ -63,6 +64,8 @@ public class MainMenuFragment extends Fragment {
         mDiscordButton.setOnClickListener(v -> Tools.openURL(requireActivity(), getString(R.string.social_media_invite)));
         mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation());
+        mManageModsButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(),
+                ManageModsFragment.class, ManageModsFragment.TAG, null));
         mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
 
         mPlayButton.setOnClickListener(v -> ExtraCore.setValue(ExtraConstants.LAUNCH_GAME, true));

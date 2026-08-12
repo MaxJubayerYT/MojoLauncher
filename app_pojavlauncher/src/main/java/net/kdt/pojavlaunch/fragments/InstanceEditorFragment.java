@@ -46,6 +46,7 @@ public class InstanceEditorFragment extends Fragment implements CropperUtils.Cro
     private Instance mInstance;
     private String mSelectedControlLayout;
     private Button mSaveButton, mDeleteButton, mControlSelectButton, mVersionSelectButton;
+    private Button mManageModsButton;
     private Spinner mDefaultRuntime, mDefaultRenderer;
     private EditText mDefaultName, mDefaultJvmArgument;
     private TextView mDefaultVersion, mDefaultControl;
@@ -102,6 +103,9 @@ public class InstanceEditorFragment extends Fragment implements CropperUtils.Cro
         View.OnClickListener versionSelectListener = getVersionSelectListener();
         mVersionSelectButton.setOnClickListener(versionSelectListener);
         mDefaultVersion.setOnClickListener(versionSelectListener);
+
+        mManageModsButton.setOnClickListener(v -> Tools.swapFragment(requireActivity(),
+                ManageModsFragment.class, ManageModsFragment.TAG, null));
 
         // Set up the icon change click listener
         mInstanceIcon.setOnClickListener(v -> {
@@ -175,6 +179,21 @@ public class InstanceEditorFragment extends Fragment implements CropperUtils.Cro
         mDefaultName.setText(nullToEmpty(instance.name));
         mDefaultControl.setText(mSelectedControlLayout == null ? nullToEmpty(instance.controlLayout) : mSelectedControlLayout);
         mSharedDataCheckbox.setChecked(instance.sharedData);
+        mManageModsButton.setVisibility(isModdedVersionId(instance.versionId) ? View.VISIBLE : View.GONE);
+    }
+
+    /**
+     * "Manage mods" only makes sense for instances running a mod loader - a vanilla instance
+     * has no mods folder worth managing. Version ids follow the naming scheme defined in
+     * {@link net.kdt.pojavlaunch.modloaders.modpacks.api.ModLoader#getVersionId()}.
+     */
+    private static boolean isModdedVersionId(String versionId) {
+        if (versionId == null) return false;
+        return versionId.contains("legacy-fabric-loader-")
+                || versionId.contains("fabric-loader-")
+                || versionId.contains("quilt-loader-")
+                || versionId.contains("neoforge-")
+                || versionId.contains("-forge-");
     }
 
     private void bindViews(@NonNull View view){
@@ -192,6 +211,7 @@ public class InstanceEditorFragment extends Fragment implements CropperUtils.Cro
         mVersionSelectButton = view.findViewById(R.id.vprof_editor_version_button);
         mInstanceIcon = view.findViewById(R.id.vprof_editor_instance_icon);
         mSharedDataCheckbox = view.findViewById(R.id.vprof_editor_data_checkbox_container);
+        mManageModsButton = view.findViewById(R.id.vprof_editor_manage_mods_button);
     }
 
     private void save(){

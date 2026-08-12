@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_card"
+    android:paddingHorizontal="@dimen/padding_moderate"
+    android:paddingVertical="@dimen/padding_medium"
+    android:layout_marginBottom="@dimen/padding_moderate">
+
+    <TextView
+        android:id="@+id/installed_mod_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/_13ssp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/installed_mod_switch"
+        tools:text="Sodium" />
+
+    <TextView
+        android:id="@+id/installed_mod_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondary_text"
+        android:textSize="@dimen/_11ssp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/installed_mod_title"
+        app:layout_constraintStart_toStartOf="@id/installed_mod_title"
+        app:layout_constraintEnd_toStartOf="@id/installed_mod_switch"
+        tools:text="mc1.20.1-0.5.8" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/installed_mod_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/installed_mod_busy"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/installed_mod_subtitle"
+        app:layout_constraintStart_toStartOf="@id/installed_mod_title"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageButton
+        android:id="@+id/installed_mod_update"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_refresh"
+        android:visibility="gone"
+        android:contentDescription="@string/mod_filter_has_update"
+        app:layout_constraintTop_toBottomOf="@id/installed_mod_subtitle"
+        app:layout_constraintStart_toStartOf="@id/installed_mod_title"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageButton
+        android:id="@+id/installed_mod_switch_version"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginStart="@dimen/padding_moderate"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_px_switch_arrows_x"
+        android:contentDescription="@string/mod_select_version_title"
+        app:layout_constraintTop_toBottomOf="@id/installed_mod_subtitle"
+        app:layout_constraintStart_toEndOf="@id/installed_mod_update"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageButton
+        android:id="@+id/installed_mod_delete"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_px_trash"
+        android:contentDescription="@string/global_delete"
+        app:layout_constraintTop_toBottomOf="@id/installed_mod_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

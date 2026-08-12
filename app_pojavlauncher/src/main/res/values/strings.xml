@@ -331,6 +331,38 @@
 
     <string name="hint_search_modpack">Search for modpacks</string>
 
+    <!-- Manage / browse mods -->
+    <string name="mcl_button_manage_mods">Manage mods</string>
+    <string name="manage_mods_title">Mods</string>
+    <string name="manage_mods_empty">No mods installed yet</string>
+    <string name="global_back">Back</string>
+    <string name="global_add">Add</string>
+    <string name="global_refresh">Refresh</string>
+    <string name="mcl_button_filter">Filter</string>
+    <string name="hint_search_mods">Search for mods</string>
+    <string name="mod_loader_filter_label">Mod loader</string>
+    <string name="mod_loader_any">Any</string>
+    <string name="mod_filter_show_label">Show</string>
+    <string name="mod_filter_all">All mods</string>
+    <string name="mod_filter_enabled">Enabled only</string>
+    <string name="mod_filter_disabled">Disabled only</string>
+    <string name="mod_filter_has_update">Updates available</string>
+    <string name="mod_update_checking">Checking for mod updates…</string>
+    <string name="mod_update_no_filter">Set a Minecraft version or loader filter first</string>
+    <string name="mod_update_installed">Mod updated</string>
+    <string name="mod_update_failed">Failed to update mod</string>
+    <string name="mod_version_switched">Mod version switched</string>
+    <string name="mod_toggle_failed">Failed to toggle mod</string>
+    <string name="mod_delete_failed">Failed to delete mod</string>
+    <string name="mod_auto_update_check_label">Automatically check for mod updates</string>
+    <string name="mod_select_version_title">Select a version</string>
+    <string name="mod_no_versions_found">No versions found for the current filter</string>
+    <string name="search_mod_no_result">No mods found</string>
+    <string name="search_mod_error">Failed to find mods</string>
+    <string name="search_mod_download_error">Failed to download mod metadata</string>
+    <string name="mod_install_success">Mod installed</string>
+    <string name="mod_install_failed">Failed to install mod</string>
+
     <string name="preference_vulkan_driver_system_title">Use system Vulkan driver</string>
     <string name="preference_vulkan_driver_system_description">Force the launcher to use the system Vulkan driver instead of Turnip on Adreno GPUs. Only affects Zink and mods that use Vulkan.</string>
 

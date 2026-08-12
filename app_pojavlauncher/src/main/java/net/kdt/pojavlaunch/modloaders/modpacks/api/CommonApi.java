@@ -121,6 +121,11 @@ public class CommonApi implements ModpackApi {
     }
 
     @Override
+    public ModDetail getModDetails(ModItem item, String filterMcVersion, String filterLoader) {
+        return getModpackApi(item.apiSource).getModDetails(item, filterMcVersion, filterLoader);
+    }
+
+    @Override
     public ModLoader installModpack(ModDetail modDetail, int selectedVersion) throws IOException {
         return getModpackApi(modDetail.apiSource).installModpack(modDetail, selectedVersion);
     }

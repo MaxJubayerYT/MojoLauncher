@@ -68,12 +68,20 @@
 				app:layout_constraintTop_toBottomOf="@id/custom_control_button" />
 
 			<com.kdt.mcgui.LauncherMenuButton
+				android:id="@+id/manage_mods_button"
+				style="@style/LauncherMenuButton.Universal"
+				android:layout_width="match_parent"
+				android:drawableStart="@drawable/ic_px_experiment"
+				android:text="@string/mcl_button_manage_mods"
+				app:layout_constraintTop_toBottomOf="@id/install_jar_button" />
+
+			<com.kdt.mcgui.LauncherMenuButton
 				android:id="@+id/share_logs_button"
 				style="@style/LauncherMenuButton.Universal"
 				android:layout_width="match_parent"
 				android:drawableStart="@drawable/ic_px_sharelog"
 				android:text="@string/main_share_logs"
-				app:layout_constraintTop_toBottomOf="@id/install_jar_button" />
+				app:layout_constraintTop_toBottomOf="@id/manage_mods_button" />
 
 			<com.kdt.mcgui.LauncherMenuButton
 				android:id="@+id/open_files_button"
