@@ -239,7 +239,7 @@ public class InstalledModAdapter extends RecyclerView.Adapter<InstalledModAdapte
                             JsonObject versionObj = map.getAsJsonObject(mod.sha1);
                             String newId = versionObj.get("id").getAsString();
                             if (mod.modrinthVersionId != null && mod.modrinthVersionId.equals(newId)) continue;
-                            JsonObject file = versionObj.getAsJsonArray("files").get(0).getAsJsonObject();
+                            JsonObject file = net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthFileUtils.getPrimaryFile(versionObj);
                             mod.modrinthProjectId = versionObj.has("project_id") ? versionObj.get("project_id").getAsString() : mod.modrinthProjectId;
                             mod.updateVersionId = newId;
                             mod.updateVersionUrl = file.get("url").getAsString();
@@ -364,6 +364,10 @@ public class InstalledModAdapter extends RecyclerView.Adapter<InstalledModAdapte
         public String updateVersionId;
         public String updateVersionUrl;
         public String updateVersionHash;
+        /* True while installUpdate()/switchVersion() is actively downloading this mod - kept on
+         * the model (not the ViewHolder) so a mid-download rebuildVisibleList()/notifyDataSetChanged()
+         * re-bind doesn't clobber the busy spinner back to the idle "Update" button state. */
+        public boolean busy;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -401,13 +405,17 @@ public class InstalledModAdapter extends RecyclerView.Adapter<InstalledModAdapte
             });
 
             boolean hasUpdate = mod.updateVersionId != null;
-            mUpdateButton.setVisibility(hasUpdate ? View.VISIBLE : View.GONE);
+            mUpdateButton.setVisibility(hasUpdate && !mod.busy ? View.VISIBLE : View.GONE);
             mUpdateButton.setOnClickListener(v -> {
+                mod.busy = true;
                 mUpdateButton.setVisibility(View.GONE);
                 mBusyIndicator.setVisibility(View.VISIBLE);
-                installUpdate(mod, () -> mBusyIndicator.setVisibility(View.GONE));
+                installUpdate(mod, () -> {
+                    mod.busy = false;
+                    mBusyIndicator.setVisibility(View.GONE);
+                });
             });
-            mBusyIndicator.setVisibility(View.GONE);
+            mBusyIndicator.setVisibility(mod.busy ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -419,9 +427,11 @@ public class InstalledModAdapter extends RecyclerView.Adapter<InstalledModAdapte
         }
 
         void downloadOne(File target, String url, String sha1) throws IOException, InterruptedException {
-            disableSizeCounter();
             ArrayList<TaskMetadata> tasks = new ArrayList<>(1);
-            tasks.add(new TaskMetadata(target, new URL(url), 0, sha1, DownloadMirror.DOWNLOAD_CLASS_NONE));
+            // -1 is the "unknown size" sentinel this download pipeline expects; passing 0 here
+            // made CheckFileOnDiskTask's post-download size comparison (0 != actual file size)
+            // always fail, so every install/update/switch would report a verification failure.
+            tasks.add(new TaskMetadata(target, new URL(url), -1, sha1, DownloadMirror.DOWNLOAD_CLASS_NONE));
             runDownloads(tasks);
         }
     }

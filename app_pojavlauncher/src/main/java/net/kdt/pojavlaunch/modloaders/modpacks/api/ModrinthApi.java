@@ -131,11 +131,11 @@ public class ModrinthApi implements ModpackApi{
             JsonObject version = versions.get(i);
             names[i] = version.get("name").getAsString();
             mcNames[i] = version.get("game_versions").getAsJsonArray().get(0).getAsString();
-            urls[i] = version.get("files").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
+            JsonObject primaryFile = ModrinthFileUtils.getPrimaryFile(version);
+            urls[i] = primaryFile.get("url").getAsString();
             versionIds[i] = version.get("id").getAsString();
             // Assume there may not be hashes, in case the API changes
-            JsonObject hashesMap = version.getAsJsonArray("files").get(0).getAsJsonObject()
-                    .get("hashes").getAsJsonObject();
+            JsonObject hashesMap = primaryFile.getAsJsonObject("hashes");
             if(hashesMap == null || hashesMap.get("sha1") == null){
                 hashes[i] = null;
                 continue;

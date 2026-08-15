@@ -58,7 +58,7 @@ public class VersionSwitchDialog {
                 JsonArray versions = JsonParser.parseString(response).getAsJsonArray();
                 for (int i = 0; i < versions.size(); i++) {
                     JsonObject version = versions.get(i).getAsJsonObject();
-                    JsonObject file = version.getAsJsonArray("files").get(0).getAsJsonObject();
+                    JsonObject file = net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthFileUtils.getPrimaryFile(version);
                     String versionUrl = file.get("url").getAsString();
                     JsonObject hashes = file.getAsJsonObject("hashes");
                     String hash = hashes != null && hashes.has("sha1") ? hashes.get("sha1").getAsString() : null;

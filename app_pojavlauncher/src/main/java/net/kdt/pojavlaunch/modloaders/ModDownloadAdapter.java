@@ -407,9 +407,10 @@ public class ModDownloadAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         void downloadOne(File target, String url, String sha1) throws Exception {
-            disableSizeCounter();
+            // See the identical fix/comment in InstalledModAdapter's SingleModDownloader -
+            // -1 is "unknown size", not 0.
             java.util.ArrayList<TaskMetadata> tasks = new java.util.ArrayList<>(1);
-            tasks.add(new TaskMetadata(target, new URL(url), 0, sha1, DownloadMirror.DOWNLOAD_CLASS_NONE));
+            tasks.add(new TaskMetadata(target, new URL(url), -1, sha1, DownloadMirror.DOWNLOAD_CLASS_NONE));
             runDownloads(tasks);
         }
     }
