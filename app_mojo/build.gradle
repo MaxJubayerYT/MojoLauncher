@@ -295,6 +295,7 @@ afterEvaluate {
         registrar.setVariant(variant)
 
         registrar.projectJarDependency project(":forge_installer"), "components/forge_installer"
+        registrar.projectJarDependency project(":filedialog_bridge"), "components/filedialog_bridge"
         registrar.projectJarDependency project(":NoBlocklist"), "components/noblocklist"
 
 		if (variant.getName().toLowerCase().contains("full")) {
